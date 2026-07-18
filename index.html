@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Picture Change — 画像編集（ドット化・色数変更・解像度・VHS）</title>
+  <title>Picture Change — 画像編集（ドット化・色数変更・解像度・VHS・レトロポスタライズ）</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <header>
     <h1>Picture Change</h1>
-    <p>画像をアップロードしてドット化・色数変更・解像度変更・VHSフィルターを適用できます。</p>
+    <p>画像・動画をアップロードしてドット化・色数変更・解像度変更・VHS やレトロポスタライジングを適用できます。</p>
   </header>
 
   <main>
@@ -17,6 +17,11 @@
       <label class="file">
         画像を選択
         <input id="fileInput" type="file" accept="image/*" />
+      </label>
+
+      <label class="file">
+        動画を選択
+        <input id="videoInput" type="file" accept="video/*" />
       </label>
 
       <div class="control-row">
@@ -47,15 +52,31 @@
         </label>
       </fieldset>
 
+      <fieldset class="sample">
+        <legend>レトロポスタライズ（サンプル画像風）</legend>
+        <label><input id="sampleToggle" type="checkbox" /> 有効にする（画像と動画両方に適用）</label>
+        <label>ポスタライズ強度（レベル）: <span id="posterVal">6</span>
+          <input id="posterLevels" type="range" min="2" max="16" value="6" />
+        </label>
+        <label>ボーダー(px): <span id="borderVal">30</span>
+          <input id="borderSize" type="range" min="0" max="120" value="30" />
+        </label>
+        <label>赤いグロー強さ: <span id="glowVal">0.6</span>
+          <input id="glowStrength" type="range" min="0" max="1" step="0.01" value="0.6" />
+        </label>
+      </fieldset>
+
       <div class="actions">
         <button id="downloadBtn" disabled>ダウンロード</button>
         <button id="resetBtn">リセット</button>
+        <button id="stopVideoBtn" disabled>動画停止</button>
       </div>
     </section>
 
     <section class="preview">
       <canvas id="canvas">Canvas not supported</canvas>
-      <div id="hint">画像をアップロードしてください（ドラッグ＆ドロップ対応）</div>
+      <video id="video" playsinline style="display:none"></video>
+      <div id="hint">画像か動画をアップロードしてください（ドラッグ＆ドロップ対応）</div>
     </section>
   </main>
 
